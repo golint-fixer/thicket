@@ -30,10 +30,10 @@ func init() {
 	</s:Header>
 	<s:Body xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 		<GetTransitionOfCareCcda xmlns="http://emr.ws.cp.gehcit.com/">
-			<patientId>{{.PatientId}}</patientId>
-			<documentId>{{.DocumentId}}</documentId>
-			<providerId>{{.ProviderId}}</providerId>
-			<orderId>{{.OrderId}}</orderId>
+			<patientId>{{.PatientID}}</patientId>
+			<documentId>{{.DocumentID}}</documentId>
+			<providerId>{{.ProviderID}}</providerId>
+			<orderId>{{.OrderID}}</orderId>
 		</GetTransitionOfCareCcda>
 	</s:Body>
 </s:Envelope>`))
@@ -52,7 +52,7 @@ type response struct {
 }
 
 type data struct {
-	Xml string `xml:"transitionOfCareAsXML"`
+	XML string `xml:"transitionOfCareAsXML"`
 }
 
 type apiSettings struct {
@@ -100,10 +100,10 @@ func (a *api) generateCcda(oid, pid, sdid, pvid int64) (string, error) {
 		Expires    string
 		Username   string
 		Password   string
-		PatientId  int64
-		DocumentId int64
-		ProviderId int64
-		OrderId    int64
+		PatientID  int64
+		DocumentID int64
+		ProviderID int64
+		OrderID    int64
 	}{
 		time.Now().Format(time.RFC3339) + "Z",
 		time.Now().Add(5*time.Minute).Format(time.RFC3339) + "Z",
@@ -139,7 +139,7 @@ func (a *api) generateCcda(oid, pid, sdid, pvid int64) (string, error) {
 		return "", err
 	}
 
-	ccda, err := base64.StdEncoding.DecodeString(env.Body.Response.Data.Xml)
+	ccda, err := base64.StdEncoding.DecodeString(env.Body.Response.Data.XML)
 
 	if err != nil {
 		return "", err
