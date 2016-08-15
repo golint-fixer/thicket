@@ -79,7 +79,7 @@ func (d *database) getPatientData(pids []int64) ([]patient, error) {
 			return nil, err
 		}
 
-		defer d.dropPidTempTable(tn)
+		defer func() { _ = d.dropPidTempTable(tn) }()
 		tableName = tn
 	} else {
 		tableName = "document"
@@ -102,7 +102,7 @@ where pid in (select pid from %s)`, tableName)
 		return nil, err
 	}
 
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 
 	patients := []patient{}
 

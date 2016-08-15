@@ -125,7 +125,7 @@ func parsePids(c *cli.Context) ([]int64, error) {
 			return nil, cli.NewExitError(err.Error(), 1)
 		}
 
-		defer pf.Close()
+		defer func() { _ = pf.Close() }()
 
 		scanner := bufio.NewScanner(pf)
 		scanner.Split(bufio.ScanLines)

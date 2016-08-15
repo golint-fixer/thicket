@@ -95,7 +95,7 @@ func newAPI(settings apiSettings) api {
 func (a *api) generateCcda(oid, pid, sdid, pvid int64) (string, error) {
 	var message bytes.Buffer
 
-	messageTemplate.Execute(&message, struct {
+	err := messageTemplate.Execute(&message, struct {
 		Created    string
 		Expires    string
 		Username   string
@@ -115,13 +115,17 @@ func (a *api) generateCcda(oid, pid, sdid, pvid int64) (string, error) {
 		oid,
 	})
 
+	if err != nil {
+		return "", err
+	}
+
 	resp, err := a.client.Post(a.url, "text/xml; charset=utf-8", &message)
 
 	if err != nil {
 		return "", err
 	}
 
-	defer resp.Body.Close()
+	defer func() { _ = resp.Body.Close() }()
 
 	b, err := ioutil.ReadAll(resp.Body)
 

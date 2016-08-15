@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"os"
 	"os/user"
 
@@ -80,5 +81,10 @@ func main() {
 
 	app.Action = parseCli
 
-	app.Run(os.Args)
+	err := app.Run(os.Args)
+
+	if err != nil {
+		fmt.Printf("%s\n", err)
+		os.Exit(1)
+	}
 }
