@@ -1,6 +1,6 @@
 # thistle [![Travis][build-badge]][build]
 
-CCDA extract for Centricity Practice Solution and EMR.
+CCDA extractor for Centricity Practice Solution and EMR.
 
 [![Codecov][codecov-badge]][codecov]
 
