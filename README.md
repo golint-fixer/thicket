@@ -1,4 +1,4 @@
-# thistle [![Travis][build-badge]][build]
+# thicket [![Travis][build-badge]][build]
 
 CCDA extractor for Centricity Practice Solution and EMR.
 
